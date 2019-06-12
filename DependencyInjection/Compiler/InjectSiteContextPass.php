@@ -2,6 +2,8 @@
 
 namespace Alex\MultisiteBundle\DependencyInjection\Compiler;
 
+use Alex\MultisiteBundle\Router\Loader\AnnotatedRouteControllerLoader;
+use Alex\MultisiteBundle\Router\MultisiteRouter;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
@@ -16,8 +18,11 @@ class InjectSiteContextPass implements CompilerPassInterface
      */
     public function process(ContainerBuilder $container)
     {
-        $container->getDefinition('sensio_framework_extra.routing.loader.annot_class')->addMethodCall('setSiteContext', array(new Reference('site_context')));
-        $container->getDefinition('router.default')->setClass('Alex\MultisiteBundle\Router\MultisiteRouter');
+        $container
+            ->getDefinition('sensio_framework_extra.routing.loader.annot_class')
+            ->setClass(AnnotatedRouteControllerLoader::class)
+            ->addMethodCall('setSiteContext', array(new Reference('site_context')));
+        $container->getDefinition('router.default')->setClass(MultisiteRouter::class);
         $container->getDefinition('router.default')->addMethodCall('setSiteContext', array(new Reference('site_context')));
         $container->getDefinition('router.default')->addMethodCall('setSortRoutes', array("%alex_multisite.sort_routes%"));
     }
