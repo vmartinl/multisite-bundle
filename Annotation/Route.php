@@ -2,8 +2,7 @@
 
 namespace Alex\MultisiteBundle\Annotation;
 
-use Alex\MultisiteBundle\Branding\SiteContext;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route as BaseRoute;
+use Symfony\Component\Routing\Annotation\Route as BaseRoute;
 
 /**
  * Extends @Route annotation to add a new option: paths.

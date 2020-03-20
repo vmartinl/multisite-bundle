@@ -19,7 +19,7 @@ class InjectSiteContextPass implements CompilerPassInterface
     public function process(ContainerBuilder $container)
     {
         $container
-            ->getDefinition('sensio_framework_extra.routing.loader.annot_class')
+            ->getDefinition('routing.loader.annotation')
             ->setClass(AnnotatedRouteControllerLoader::class)
             ->addMethodCall('setSiteContext', array(new Reference('site_context')));
         $container->getDefinition('router.default')->setClass(MultisiteRouter::class);

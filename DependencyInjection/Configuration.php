@@ -2,6 +2,7 @@
 
 namespace Alex\MultisiteBundle\DependencyInjection;
 
+use Alex\MultisiteBundle\Branding\Branding;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
@@ -15,12 +16,12 @@ class Configuration implements ConfigurationInterface
      */
     public function getConfigTreeBuilder()
     {
-        $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('alex_multisite');
+        $treeBuilder = new TreeBuilder('alex_multisite');
 
-        $rootNode
+        $treeBuilder
+            ->getRootNode()
             ->children()
-                ->scalarNode('branding_class')->defaultValue('Alex\MultisiteBundle\Branding\Branding')->end()
+                ->scalarNode('branding_class')->defaultValue(Branding::class)->end()
                 ->booleanNode('sort_routes')->defaultTrue()->end()
                 ->scalarNode('default_branding')->isRequired()->end()
                 ->scalarNode('default_locale')->isRequired()->end()

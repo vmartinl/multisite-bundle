@@ -3,14 +3,17 @@
 namespace Alex\MultisiteBundle\Twig;
 
 use Alex\MultisiteBundle\Branding\SiteContext;
+use Twig\Error\LoaderError;
+use Twig\Loader\FilesystemLoader;
+use Twig\Loader\LoaderInterface;
 
 /**
  * Wraps a Twig Loader and extends template syntax
  */
-class MultisiteLoader extends \Twig_Loader_Filesystem
+class MultisiteLoader extends FilesystemLoader
 {
     /**
-     * @var \Twig_Loader_Filesystem
+     * @var FilesystemLoader
      */
     protected $loader;
 
@@ -22,9 +25,10 @@ class MultisiteLoader extends \Twig_Loader_Filesystem
     /**
      * Constructs the loader.
      *
-     * @param \Twig_LoaderInterface $loader a twig loader
+     * @param LoaderInterface $loader a twig loader
+     * @param SiteContext $siteContext
      */
-    public function __construct(\Twig_LoaderInterface $loader, SiteContext $siteContext)
+    public function __construct(LoaderInterface $loader, SiteContext $siteContext)
     {
         parent::__construct();
 
@@ -42,11 +46,11 @@ class MultisiteLoader extends \Twig_Loader_Filesystem
         foreach ($templates as $template) {
             try {
                 return $this->loader->getSource($template);
-            } catch (\Twig_Error $e) {
+            } catch (LoaderError $e) {
             }
         }
 
-        throw new \Twig_Error_Loader(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
+        throw new LoaderError(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
     }
 
     /**
@@ -59,11 +63,11 @@ class MultisiteLoader extends \Twig_Loader_Filesystem
         foreach ($templates as $template) {
             try {
                 return $this->loader->getSourceContext($template);
-            } catch (\Twig_Error $e) {
+            } catch (LoaderError $e) {
             }
         }
 
-        throw new \Twig_Error_Loader(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
+        throw new LoaderError(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
     }
 
     /**
@@ -84,11 +88,11 @@ class MultisiteLoader extends \Twig_Loader_Filesystem
         foreach ($templates as $template) {
             try {
                 return $this->loader->getCacheKey($template);
-            } catch (\Twig_Error $e) {
+            } catch (LoaderError $e) {
             }
         }
 
-        throw new \Twig_Error_Loader(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
+        throw new LoaderError(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
     }
 
     /**
@@ -101,11 +105,11 @@ class MultisiteLoader extends \Twig_Loader_Filesystem
         foreach ($templates as $template) {
             try {
                 return $this->loader->isFresh($template, $time);
-            } catch (\Twig_Error $e) {
+            } catch (LoaderError $e) {
             }
         }
 
-        throw new \Twig_Error_Loader(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
+        throw new LoaderError(sprintf("Template \"%s\" not found. Tried the following:\n%s", $name, implode("\n", $templates)));
     }
 
     /**

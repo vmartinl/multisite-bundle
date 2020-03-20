@@ -2,7 +2,6 @@
 
 namespace Alex\MultisiteBundle\DependencyInjection;
 
-use Alex\MultisiteBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;

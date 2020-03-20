@@ -5,7 +5,7 @@ namespace Alex\MultisiteBundle\Router\Loader;
 use Alex\MultisiteBundle\Annotation\Route as RouteAnnotation;
 use Alex\MultisiteBundle\Branding\SiteContext;
 use Alex\MultisiteBundle\Router\MultisiteRouter;
-use Sensio\Bundle\FrameworkExtraBundle\Routing\AnnotatedRouteControllerLoader as BaseAnnotatedRouteControllerLoader;
+use Symfony\Bundle\FrameworkBundle\Routing\AnnotatedRouteControllerLoader as BaseAnnotatedRouteControllerLoader;
 use Symfony\Component\Config\Resource\FileResource;
 use Symfony\Component\Routing\Route;
 use Symfony\Component\Routing\RouteCollection;
